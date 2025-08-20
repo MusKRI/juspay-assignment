@@ -111,11 +111,11 @@ src/
 - **next-themes** - Theme management
 - **@faker-js/faker** - Generate fake data for development
 
+## Design & Code Decisions
+
+- I've organized the codebase using feature based structure (src/features/) rather than traditional layer based organization. This approach ensure better maintainability and clear separation of concerns. Each feature (like `order-list`) will have its own components, hooks, types and utils.
+- for the core functionality of table and better working table, I've merged `@tanstack/react-table` with state management like `nuqs`. This will help in keeping the states in URL, shareable and this will also help into chossing whether you want to keep table server sided or client sided.
+
 ## 🚀 Deployment
 
-The easiest way to deploy this Next.js application is using [Vercel](https://vercel.com/new):
-
-1. Push your code to a Git repository
-2. Import your project to Vercel
-3. Vercel will automatically detect Next.js and configure the build settings
-4. Your app will be deployed and you'll get a URL
+You can find deployed version of this app [here](https://krishna-juspay-assignment.vercel.app/):

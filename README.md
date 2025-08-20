@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Juspay Assignment - eCommerce Dashboard
 
-## Getting Started
+## 📋 Prerequisites
 
-First, run the development server:
+Before you begin, ensure you have the following installed on your system:
+
+- **Node.js**: Version 18.17.0 or higher
+- **npm**: Version 9.0.0 or higher (comes with Node.js)
+
+  You can verify your installations by running:
+
+  ```bash
+  node --version
+  npm --version
+  ```
+
+## 🛠️ Installation & Setup
+
+Follow these steps to get the project running locally:
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/MusKRI/juspay-assignment
+cd juspay-assignment
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+This will install all required dependencies including:
+
+- Next.js 15.4.6
+- React 19.1.0
+- TypeScript 5
+- Tailwind CSS 4
+- Radix UI components
+- And many more...
+
+### 3. Start the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will start with Turbopack (faster than Webpack) and be available at:
+**[http://localhost:3005](http://localhost:3005)**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> **Note**: This project runs on port 3005 (not the default 3000) to avoid conflicts with other applications.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏗️ Project Structure
 
-## Learn More
+```
+src/
+├── app/                          # Next.js App Router
+│   ├── (app)/(dashboard)/       # Dashboard layout and pages
+│   └── layout.tsx               # Root layout
+├── core/                        # Core application components
+│   ├── components/              # Reusable UI components
+│   │   ├── ui/                  # shadcn/ui components
+│   │   ├── header/              # Header components
+│   │   ├── sidebar/             # Sidebar navigation
+│   │   └── notification-sidebar/ # Notification system
+│   ├── hooks/                   # Custom React hooks
+│   ├── icons/                   # Icon components
+│   └── providers/               # Context providers
+├── features/                    # Feature-based components
+│   ├── defaults/                # Dashboard default components
+│   └── order-list/              # Order management feature
+├── data/                        # Static data and mock data
+├── lib/                         # Utility functions and configurations
+├── services/                    # API services and data fetching
+├── styles/                      # Global styles and CSS
+└── types/                       # TypeScript type definitions
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🎨 Technology Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Frontend Framework
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Next.js 15.4.6** - React framework with App Router
+- **React 19.1.0** - JavaScript library for building user interfaces
+- **TypeScript 5** - Static type checking
 
-## Deploy on Vercel
+### UI & Styling
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **Radix UI** - Unstyled, accessible UI primitives
+- **shadcn/ui** - Re-usable components built with Radix UI
+- **Lucide React** - Beautiful & consistent icon pack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Data & State Management
+
+- **@tanstack/react-table** - Headless table library
+- **nuqs** - Type-safe search params state manager
+- **Recharts** - Composable charting library
+
+### Development Tools
+
+- **Turbopack** - Fast bundler for development
+- **ESLint** - Code linting
+- **PostCSS** - CSS transformation
+
+### Additional Libraries
+
+- **date-fns** - Date utility library
+- **lottie-react** - Render Lottie animations
+- **next-themes** - Theme management
+- **@faker-js/faker** - Generate fake data for development
+
+## 🚀 Deployment
+
+The easiest way to deploy this Next.js application is using [Vercel](https://vercel.com/new):
+
+1. Push your code to a Git repository
+2. Import your project to Vercel
+3. Vercel will automatically detect Next.js and configure the build settings
+4. Your app will be deployed and you'll get a URL

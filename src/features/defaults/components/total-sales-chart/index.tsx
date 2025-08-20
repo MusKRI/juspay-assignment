@@ -2,6 +2,7 @@
 
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { useTheme } from "next-themes";
+
 import { formatCurrency } from "@/lib/currency-utils";
 
 interface SalesData {
@@ -38,7 +39,6 @@ const salesData: SalesData[] = [
   },
 ];
 
-// Calculate total and percentage for largest segment
 const totalValue = salesData.reduce((sum, item) => sum + item.value, 0);
 const largestSegment = salesData.reduce((prev, current) =>
   prev.value > current.value ? prev : current
@@ -58,7 +58,6 @@ export function TotalSalesChart() {
       </h3>
 
       <div className="flex flex-col items-center justify-between">
-        {/* Pie Chart */}
         <div className="relative w-[200px] h-[200px]">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
@@ -93,8 +92,7 @@ export function TotalSalesChart() {
           </div>
         </div>
 
-        {/* Legend */}
-        <div className="flex flex-col gap-3 ml-8">
+        <div className="flex flex-col gap-3 ml-8 max-w-[300px] w-full">
           {salesData.map((item, index) => (
             <div key={index} className="flex items-center gap-3">
               <div

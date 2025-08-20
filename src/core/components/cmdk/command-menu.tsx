@@ -25,7 +25,7 @@ import {
 
 import fileDarkModeIcon from "@/assets/lottie-icons/file/dark-mode.json";
 import fileLightModeIcon from "@/assets/lottie-icons/file/light-mode.json";
-import { SearchIcon } from "@/core/icons/other-icons";
+import { SearchIcon } from "icons/other-icons";
 
 type ItemProps = {
   heading: string;

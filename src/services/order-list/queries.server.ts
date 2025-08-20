@@ -32,7 +32,6 @@ export const getPaginatedOrderList = async (
   if (search && search.trim() !== "") {
     const searchTerm = search.toLowerCase().trim();
     filteredData = filteredData.filter((order) => {
-      // Search through multiple fields: id, user name, project, address, status
       const searchableFields = [
         order.id.toLowerCase(),
         order.user.name.toLowerCase(),
@@ -41,7 +40,6 @@ export const getPaginatedOrderList = async (
         order.status.toLowerCase(),
       ];
 
-      // Return true if any field contains the search term
       return searchableFields.some((field) => field.includes(searchTerm));
     });
   }
@@ -51,7 +49,6 @@ export const getPaginatedOrderList = async (
     let aValue: any;
     let bValue: any;
 
-    // Handle nested properties for sorting
     switch (sortField) {
       case "user":
         aValue = a.user.name.toLowerCase();
@@ -74,7 +71,6 @@ export const getPaginatedOrderList = async (
         bValue = b.address.toLowerCase();
         break;
       case "id":
-        // Extract numeric part from ID for proper sorting
         aValue = parseInt(a.id.replace("#CM", ""));
         bValue = parseInt(b.id.replace("#CM", ""));
         break;
@@ -83,7 +79,6 @@ export const getPaginatedOrderList = async (
         bValue = b.createdAt.getTime();
     }
 
-    // Apply sort direction
     if (sortDirection === "asc") {
       if (aValue < bValue) return -1;
       if (aValue > bValue) return 1;

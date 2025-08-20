@@ -46,17 +46,15 @@ interface CustomLegendProps {
 }
 
 const CustomLegend = ({ payload }: CustomLegendProps) => {
-  const { theme } = useTheme();
-
   const legendItems = [
     {
       value: "Current Week",
-      color: theme === "dark" ? "#c6c7f8" : "#1c1c1c",
+      colorClass: "bg-[#1c1c1c] dark:bg-[#c6c7f8]",
       amount: "$58,211",
     },
     {
       value: "Previous Week",
-      color: "#a8c5da",
+      colorClass: "bg-[#a8c5da]",
       amount: "$68,768",
     },
   ];
@@ -69,10 +67,7 @@ const CustomLegend = ({ payload }: CustomLegendProps) => {
       <div className="flex items-center gap-6 pl-6">
         {legendItems.map((item, index) => (
           <div key={index} className="flex items-center gap-2">
-            <div
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: item.color }}
-            />
+            <div className={`w-3 h-3 rounded-full ${item.colorClass}`} />
             <span className="text-sm text-muted-foreground">{item.value}</span>
             <span className="text-sm font-medium text-card-foreground">
               {item.amount}
@@ -150,16 +145,13 @@ const formatYAxisTick = (value: number) => {
 export function RevenueLineChart() {
   const { theme } = useTheme();
 
-  // Define colors based on theme
   const colors = {
     currentWeek: theme === "dark" ? "#c6c7f8" : "#1c1c1c",
     previousWeek: "#a8c5da",
   };
 
-  // Split data for proper line rendering
-  const currentMonth = 3; // April (0-based index)
+  const currentMonth = 3;
 
-  // Create enhanced data with all necessary properties for tooltip
   const enhancedData = chartData.map((item, index) => ({
     ...item,
     currentWeekContinuous: index <= currentMonth ? item.currentWeek : null,

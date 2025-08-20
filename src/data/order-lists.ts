@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker";
 
-// Define order status enum for type safety
 export enum OrderStatus {
   IN_PROGRESS = "In Progress",
   COMPLETE = "Complete",
@@ -9,13 +8,11 @@ export enum OrderStatus {
   REJECTED = "Rejected",
 }
 
-// Define user interface
 export interface OrderUser {
   name: string;
   avatar: string;
 }
 
-// Define main order interface
 export interface Order {
   id: string;
   user: OrderUser;
@@ -25,19 +22,17 @@ export interface Order {
   status: OrderStatus;
 }
 
-// Available avatar styles from DiceBear API
 const avatarStyles = [
-  "avataaars", // Cartoon-style avatars
-  "personas", // Abstract personas
-  "lorelei", // Simple geometric faces
-  "notionists", // Notion-style avatars
-  "fun-emoji", // Fun emoji-style
-  "big-smile", // Happy faces
-  "adventurer", // Adventure-themed
-  "micah", // Minimalist style
+  "avataaars",
+  "personas",
+  "lorelei",
+  "notionists",
+  "fun-emoji",
+  "big-smile",
+  "adventurer",
+  "micah",
 ];
 
-// Project types for variety
 const projectTypes = [
   "Landing Page",
   "E-commerce Site",
@@ -67,7 +62,6 @@ const generateOrderId = (index: number): string => {
   return `#CM${randomNum}`;
 };
 
-// Function to generate concise address (max 5 words)
 const generateConciseAddress = (): string => {
   const streetNumber = faker.location.buildingNumber();
   const streetName = faker.location.street().split(" ").slice(0, 2).join(" ");
@@ -86,19 +80,15 @@ const getRandomAvatar = (seed?: string): string => {
   )}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&size=128`;
 };
 
-// Function to get random project name
 const getRandomProject = (): string => {
   return faker.helpers.arrayElement(projectTypes);
 };
 
-// Function to get random status
 const getRandomStatus = (): OrderStatus => {
   return faker.helpers.arrayElement(Object.values(OrderStatus));
 };
 
-// Generate 50 order entries
 const orderListData: Order[] = Array.from({ length: 50 }, (_, index) => {
-  // Generate dates in the last 30 days for variety
   const createdAt = faker.date.recent({ days: 30 });
 
   const userName = faker.person.fullName();
@@ -107,7 +97,7 @@ const orderListData: Order[] = Array.from({ length: 50 }, (_, index) => {
     id: generateOrderId(index),
     user: {
       name: userName,
-      avatar: getRandomAvatar(userName), // Use name as seed for consistent avatars
+      avatar: getRandomAvatar(userName),
     },
     project: getRandomProject(),
     address: generateConciseAddress(),
@@ -116,7 +106,6 @@ const orderListData: Order[] = Array.from({ length: 50 }, (_, index) => {
   };
 });
 
-// Sort by created date (newest first) for better UX
 orderListData.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
 export { orderListData };

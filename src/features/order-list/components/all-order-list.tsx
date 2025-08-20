@@ -1,0 +1,31 @@
+"use client";
+
+import { useDataTable } from "@/core/hooks/use-data-table";
+import { getPaginatedOrderList } from "@/services/order-list/queries.server";
+import { Order } from "@/data/order-lists";
+
+import { columnDefs } from "./all-order-list-table/columns";
+import { DataTable } from "./all-order-list-table/data-table";
+import { DataTablePagination } from "./all-order-list-table/data-table-pagination";
+import { DataTableToolbar } from "./all-order-list-table/data-table-toolbar";
+
+type Props = {
+  paginatedOrderResponse: Awaited<ReturnType<typeof getPaginatedOrderList>>;
+};
+
+export function AllOrderList({ paginatedOrderResponse }: Props) {
+  const { table, pagination, sorting, selection } = useDataTable<Order>({
+    columns: columnDefs as any,
+    data: paginatedOrderResponse,
+    enableRowSelection: true,
+    enableSorting: true,
+  });
+
+  return (
+    <div className="space-y-4">
+      <DataTableToolbar />
+      <DataTable table={table} />
+      <DataTablePagination pagination={pagination} />
+    </div>
+  );
+}

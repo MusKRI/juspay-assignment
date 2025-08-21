@@ -1,5 +1,6 @@
 "use client";
 
+import { useMediaQuery } from "@/core/hooks/use-media-query";
 import { useIsMobile } from "@/core/hooks/use-mobile";
 import { useRightSidebar } from "@/core/hooks/use-right-sidebar";
 import { cn } from "@/lib/classes";
@@ -17,14 +18,17 @@ export function NotificationSidebarWrapper({
   variant = "sidebar",
   collapsible = "offcanvas",
   className,
+  mobileSidebarExternalClasses,
   children,
   ...props
 }: React.ComponentProps<"div"> & {
   side?: "left" | "right";
   variant?: "sidebar" | "floating" | "inset";
   collapsible?: "offcanvas" | "icon" | "none";
+  mobileSidebarExternalClasses?: string;
 }) {
-  const isMobile = useIsMobile();
+  // const isMobile = useIsMobile();
+  const isMobile = useMediaQuery("(max-width: 1200px)");
   const { rs, type, setParams } = useRightSidebar();
 
   const isOpen = Boolean(!!rs && type === "notification");
@@ -44,7 +48,9 @@ export function NotificationSidebarWrapper({
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="bg-sidebar text-sidebar-foreground w-(--notification-sidebar-width) p-0 [&>button]:hidden"
+          className={cn(
+            "bg-sidebar text-sidebar-foreground w-(--notification-sidebar-width) p-0 [&>button]:hidden"
+          )}
           style={
             {
               "--notification-sidebar-width": SIDEBAR_WIDTH_MOBILE,
@@ -56,7 +62,12 @@ export function NotificationSidebarWrapper({
             <SheetTitle>Sidebar</SheetTitle>
             <SheetDescription>Displays the mobile sidebar.</SheetDescription>
           </SheetHeader>
-          <div className="flex h-full w-full flex-col p-5">{children}</div>
+          <div
+            className="flex h-full w-full flex-col px-4 py-5"
+            data-slot="mobile-sidebar-inner"
+          >
+            {children}
+          </div>
         </SheetContent>
       </Sheet>
     );
@@ -86,7 +97,7 @@ export function NotificationSidebarWrapper({
       <div
         data-slot="sidebar-container"
         className={cn(
-          "fixed inset-y-0 z-10 hidden h-svh w-(--notification-sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
+          "fixed inset-y-0 z-50 hidden h-svh w-(--notification-sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
           side === "left"
             ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--notification-sidebar-width)*-1)]"
             : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--notification-sidebar-width)*-1)]",

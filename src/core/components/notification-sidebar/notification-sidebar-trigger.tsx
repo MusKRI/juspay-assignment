@@ -6,11 +6,13 @@ import { useCallback } from "react";
 import { useRightSidebar } from "@/core/hooks/use-right-sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "ui/tooltip";
 import { BellIcon } from "icons/dashboard-header-icons";
+import { useSidebar } from "../ui/sidebar";
 
 export function NotificationSidebarTrigger() {
   const { setParams, rs, type } = useRightSidebar();
+  const { toggleSidebar, open } = useSidebar();
 
-  const toggleSidebar = useCallback(() => {
+  const handleToggleSidebar = useCallback(() => {
     if (rs && type === "notification") {
       setParams({ rs: null, type: null });
     } else {
@@ -31,7 +33,10 @@ export function NotificationSidebarTrigger() {
           size="icon"
           className="size-7 cursor-pointer"
           onClick={() => {
-            toggleSidebar();
+            if (open) {
+              toggleSidebar();
+            }
+            handleToggleSidebar();
           }}
         >
           <BellIcon className="size-5" />

@@ -18,6 +18,7 @@ import {
 } from "ui/table";
 
 import { Order } from "@/data/order-lists";
+import { cn } from "@/lib/classes";
 
 type Props = {
   table: TanstackTable<Order>;
@@ -29,63 +30,68 @@ export function DataTable({ table }: Props) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, delay: 0.25 }}
-      className="relative w-full overflow-x-auto"
+      className="relative overflow-x-auto w-full touch-pan-x"
     >
-      <Table>
-        <TableHeader className="border-b-2">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-                className="h-12 group"
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell className="h-12" key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
+      <div className="relative w-full overflow-auto">
+        <Table className="table-auto w-full">
+          <TableHeader className="border-b-2">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  );
+                })}
               </TableRow>
-            ))
-          ) : (
-            <TableRow className="hover:bg-transparent">
-              <TableCell
-                colSpan={table.getAllColumns().length}
-                className="h-[calc(var(--spacing)*12*10)]"
-              >
-                <div className="flex flex-col items-center justify-center gap-8">
-                  <div className="flex flex-col gap-4 text-center font-[450]">
-                    <span>No orders matching your filters.</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-muted-foreground">
-                        Adjust or clear filters to reveal orders.
-                      </span>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                  className="h-12 group"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell className="h-12" key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow className="hover:bg-transparent">
+                <TableCell
+                  colSpan={table.getAllColumns().length}
+                  className="h-[calc(var(--spacing)*12*10)]"
+                >
+                  <div className="flex flex-col items-center justify-center gap-8">
+                    <div className="flex flex-col gap-4 text-center font-[450]">
+                      <span>No orders matching your filters.</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-muted-foreground">
+                          Adjust or clear filters to reveal orders.
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </m.div>
   );
 }

@@ -206,7 +206,7 @@ export function SidebarDashboardLinks() {
                 >
                   <span className="inline-block size-6" />
                   <span className="flex items-center gap-2">
-                    <span className={cn("w-full flex items-center gap-2")}>
+                    <span className={cn("w-full flex items-center gap-1")}>
                       {link.icon && <link.icon className="size-5" />}
                       <span>{link.title}</span>
                     </span>

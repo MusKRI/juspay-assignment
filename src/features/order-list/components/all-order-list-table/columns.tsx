@@ -17,24 +17,28 @@ const columnHelper = createColumnHelper<Order>();
 const selectColumn = columnHelper.display({
   id: "select",
   header: ({ table }) => (
-    <Checkbox
-      size="xs"
-      checked={
-        table.getIsAllPageRowsSelected() ||
-        (table.getIsSomePageRowsSelected() && "indeterminate")
-      }
-      onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
-      aria-label="Select all"
-    />
+    <div className="flex items-center justify-center w-full h-full">
+      <Checkbox
+        size="xs"
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    </div>
   ),
   cell: ({ row }) => (
-    <Checkbox
-      size="xs"
-      checked={row.getIsSelected()}
-      onCheckedChange={(value) => row.toggleSelected(!!value)}
-      aria-label="Select row"
-      className="opacity-0 group-hover:opacity-100 data-[state=checked]:opacity-100"
-    />
+    <div className="flex items-center justify-center w-full h-full">
+      <Checkbox
+        size="xs"
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+        className="md:opacity-0 md:group-hover:opacity-100 md:data-[state=checked]:opacity-100"
+      />
+    </div>
   ),
   enableSorting: false,
   enableHiding: false,

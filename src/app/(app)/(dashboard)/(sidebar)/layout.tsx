@@ -26,6 +26,7 @@ export default async function DashboardLayout({
           "--header-height-mobile": "60px",
         } as React.CSSProperties
       }
+      className={`[&_[data-slot="mobile-sidebar-inner"]]:px-4 [&_[data-slot="mobile-sidebar-inner"]]:py-5`}
     >
       <DashboardSidebar
         sidebarProps={{
@@ -34,9 +35,7 @@ export default async function DashboardLayout({
       />
       <SidebarInset>
         <DashboardHeader />
-        <main className="min-h-[calc(100vh-var(--header-height-mobile))] lg:min-h-[calc(100vh-var(--header-height))] p-4 lg:p-7 overflow-auto">
-          <div className="min-w-0 w-full max-w-full">{children}</div>
-        </main>
+        {children}
       </SidebarInset>
       <>
         <NotificationSidebar

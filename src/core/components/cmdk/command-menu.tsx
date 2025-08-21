@@ -396,7 +396,7 @@ export function CommandMenu() {
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         className={cn(
-          "cursor-pointer group relative flex items-center justify-between gap-4 pl-2.5 pr-2 py-1 border rounded-[12px] text-[13px] leading-none border-border/60 dark:border-border/50 min-w-0 md:min-w-[220px] w-full",
+          "cursor-pointer group relative flex items-center justify-between gap-4 pl-2 md:pl-2.5 pr-2 py-1 border rounded-[12px] text-[13px] leading-none border-border/60 dark:border-border/50 min-w-0 md:min-w-[220px] w-full",
           "bg-foreground/10 dark:bg-white/10 ease-linear duration-150 outline-none dark:hover:border-white/10 focus-visible:ring-1 focus-visible:ring-neutral-300/80 dark:focus-visible:ring-neutral-800"
         )}
       >

@@ -6,7 +6,11 @@ export function StarCurrentPage() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="ghost" size="icon" className="size-7 cursor-pointer">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="size-7 cursor-pointer max-lg:hidden"
+        >
           <StarIcon />
           <span className="sr-only">Mark as favorite</span>
         </Button>

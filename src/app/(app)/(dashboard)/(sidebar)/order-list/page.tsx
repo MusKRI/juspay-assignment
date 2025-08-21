@@ -21,7 +21,7 @@ export default async function OrderListPage({
   const sp = orderListSearchParamsCache.parse(asp);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 p-4 lg:p-7">
       <div className="relative px-2 py-1">
         <m.h3
           initial={{ opacity: 0, y: 10 }}

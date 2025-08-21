@@ -6,7 +6,11 @@ export function HistoryTrigger() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="ghost" size="icon" className="size-7 cursor-pointer">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="size-7 cursor-pointer max-lg:hidden"
+        >
           <ClockIcon className="size-5" />
           <span className="sr-only">History</span>
         </Button>

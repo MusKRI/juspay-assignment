@@ -17,8 +17,9 @@ export function DashboardSidebar({ sidebarProps }: DashboardSidebarProps) {
     <Sidebar
       collapsible="offcanvas"
       className={cn(
-        `px-4 pt-5 [&_[data-slot="sidebar-inner"]]:flex [&_[data-slot="sidebar-inner"]]:flex-col [&_[data-slot="sidebar-inner"]]:gap-4`
+        `px-4 pt-5 [&_[data-slot="sidebar-inner"]]:flex [&_[data-slot="sidebar-inner"]]:flex-col [&_[data-slot="sidebar-inner"]]:gap-4 `
       )}
+      mobileSidebarExternalClasses={`px-4 py-5`}
       {...sidebarProps}
     >
       <DashboardSidebarHeader />

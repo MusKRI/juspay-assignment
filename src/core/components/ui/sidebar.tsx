@@ -2,28 +2,29 @@
 
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { VariantProps, cva } from "class-variance-authority";
+import { cva, VariantProps } from "class-variance-authority";
 import { PanelLeftIcon } from "lucide-react";
 
 import { useIsMobile } from "@/core/hooks/use-mobile";
 import { cn } from "@/lib/classes";
-import { Button } from "ui/button";
-import { Input } from "ui/input";
-import { Separator } from "ui/separator";
+import { Button } from "@/core/components/ui/button";
+import { Input } from "@/core/components/ui/input";
+import { Separator } from "@/core/components/ui/separator";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "ui/sheet";
-import { Skeleton } from "ui/skeleton";
+} from "@/core/components/ui/sheet";
+import { Skeleton } from "@/core/components/ui/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "ui/tooltip";
+} from "@/core/components/ui/tooltip";
+import { useMediaQuery } from "@/core/hooks/use-media-query";
 
 export const SIDEBAR_COOKIE_NAME = "sidebar_state";
 export const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -66,7 +67,8 @@ function SidebarProvider({
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }) {
-  const isMobile = useIsMobile();
+  // const isMobile = useIsMobile();
+    const isMobile = useMediaQuery("(max-width: 1200px)");
   const [openMobile, setOpenMobile] = React.useState(false);
 
   // This is the internal state of the sidebar.
@@ -156,12 +158,14 @@ function Sidebar({
   variant = "sidebar",
   collapsible = "offcanvas",
   className,
+  mobileSidebarExternalClasses,
   children,
   ...props
 }: React.ComponentProps<"div"> & {
   side?: "left" | "right";
   variant?: "sidebar" | "floating" | "inset";
   collapsible?: "offcanvas" | "icon" | "none";
+  mobileSidebarExternalClasses?: string;
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 
@@ -199,7 +203,14 @@ function Sidebar({
             <SheetTitle>Sidebar</SheetTitle>
             <SheetDescription>Displays the mobile sidebar.</SheetDescription>
           </SheetHeader>
-          <div className="flex h-full w-full flex-col">{children}</div>
+          <div
+            className={cn(
+              "flex h-full w-full flex-col",
+              mobileSidebarExternalClasses
+            )}
+          >
+            {children}
+          </div>
         </SheetContent>
       </Sheet>
     );
@@ -207,7 +218,7 @@ function Sidebar({
 
   return (
     <div
-      className="group peer text-sidebar-foreground hidden lg:block"
+      className="group peer text-sidebar-foreground hidden md:block"
       data-state={state}
       data-collapsible={state === "collapsed" ? collapsible : ""}
       data-variant={variant}
@@ -229,7 +240,7 @@ function Sidebar({
       <div
         data-slot="sidebar-container"
         className={cn(
-          "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear lg:flex",
+          "fixed inset-y-0 z-50 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
           side === "left"
             ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
             : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
@@ -310,10 +321,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
       data-slot="sidebar-inset"
       className={cn(
         "bg-background relative flex w-full flex-1 flex-col",
-        // Apply responsive styles for both inset and sidebar variants
-        "lg:peer-data-[variant=inset]:m-2 lg:peer-data-[variant=inset]:ml-0 lg:peer-data-[variant=inset]:rounded-xl lg:peer-data-[variant=inset]:shadow-sm lg:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
-        // Add styles for sidebar variant to prevent content overflow
-        "lg:peer-data-[variant=sidebar]:peer-data-[state=expanded]:ml-0 lg:peer-data-[variant=sidebar]:peer-data-[state=collapsed]:ml-0",
+        "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
         className
       )}
       {...props}
@@ -431,7 +439,7 @@ function SidebarGroupAction({
       className={cn(
         "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         // Increases the hit area of the button on mobile.
-        "after:absolute after:-inset-2 lg:after:hidden",
+        "after:absolute after:-inset-2 md:after:hidden",
         "group-data-[collapsible=icon]:hidden",
         className
       )}
@@ -566,13 +574,13 @@ function SidebarMenuAction({
       className={cn(
         "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         // Increases the hit area of the button on mobile.
-        "after:absolute after:-inset-2 lg:after:hidden",
+        "after:absolute after:-inset-2 md:after:hidden",
         "peer-data-[size=sm]/menu-button:top-1",
         "peer-data-[size=default]/menu-button:top-1.5",
         "peer-data-[size=lg]/menu-button:top-2.5",
         "group-data-[collapsible=icon]:hidden",
         showOnHover &&
-          "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 lg:opacity-0",
+          "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 md:opacity-0",
         className
       )}
       {...props}

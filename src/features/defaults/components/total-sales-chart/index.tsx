@@ -98,7 +98,7 @@ export function TotalSalesChart() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 ml-8 max-w-[300px] w-full">
+        <div className="flex flex-col gap-3 max-w-[220px] w-full">
           {salesData.map((item, index) => (
             <div key={index} className="flex items-center gap-3">
               <div

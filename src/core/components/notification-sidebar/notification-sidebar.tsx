@@ -12,8 +12,12 @@ export function NotificationSidebar({
   sidebarProps,
 }: NotificationSidebarProps) {
   return (
-    <NotificationSidebarWrapper {...sidebarProps}>
-      <SidebarContent className="p-5 flex flex-col gap-6">
+    <NotificationSidebarWrapper
+    className="px-4 py-5"
+      {...sidebarProps}
+      mobileSidebarExternalClasses={`px-4 py-5`}
+    >
+      <SidebarContent className="flex flex-col gap-6">
         <Notifications />
         <Activities />
         <Contacts />

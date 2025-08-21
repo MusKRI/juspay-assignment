@@ -37,7 +37,7 @@ export function PageBreadcrumb() {
 
   return (
     <div className="flex items-center gap-1">
-      <span className="text-sm text-foreground/40">Dashboards</span>
+      <span className="text-xs md:text-sm text-foreground/40">Dashboards</span>
       <BreadcrumbSeparatorIcon />
       {currentPage.breadcrumb.map((breadcrumb, index) => {
         return (
@@ -47,8 +47,11 @@ export function PageBreadcrumb() {
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
             key={`${breadcrumb}-${index}`}
+            className="flex items-center gap-1"
           >
-            <span className="text-sm text-foreground">{breadcrumb}</span>
+            <span className="text-xs md:text-sm text-foreground">
+              {breadcrumb}
+            </span>
             {index < currentPage.breadcrumb.length - 1 && (
               <BreadcrumbSeparatorIcon />
             )}

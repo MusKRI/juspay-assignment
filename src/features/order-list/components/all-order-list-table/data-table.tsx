@@ -1,3 +1,5 @@
+import * as m from "motion/react-client";
+
 import {
   flexRender,
   Table as TanstackTable,
@@ -23,7 +25,12 @@ type Props = {
 
 export function DataTable({ table }: Props) {
   return (
-    <div className="relative">
+    <m.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, delay: 0.25 }}
+      className="relative w-full overflow-x-auto"
+    >
       <Table>
         <TableHeader className="border-b-2">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -79,6 +86,6 @@ export function DataTable({ table }: Props) {
           )}
         </TableBody>
       </Table>
-    </div>
+    </m.div>
   );
 }

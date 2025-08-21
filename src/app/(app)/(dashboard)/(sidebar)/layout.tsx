@@ -20,7 +20,7 @@ export default async function DashboardLayout({
       defaultOpen={defaultOpen}
       style={
         {
-          "--sidebar-width": "15.125rem", // 242px
+          "--sidebar-width": "13.25rem", // 242px
           "--sidebar-width-mobile": "20rem",
           "--header-height": "68px",
           "--header-height-mobile": "60px",
@@ -34,8 +34,8 @@ export default async function DashboardLayout({
       />
       <SidebarInset>
         <DashboardHeader />
-        <main className="min-h-[calc(100%-var(--header-height-mobile)-4px)] md:min-h-[calc(100%-var(--header-height)-4px)] p-7">
-          {children}
+        <main className="min-h-[calc(100vh-var(--header-height-mobile))] lg:min-h-[calc(100vh-var(--header-height))] p-4 lg:p-7 overflow-auto">
+          <div className="min-w-0 w-full max-w-full">{children}</div>
         </main>
       </SidebarInset>
       <>

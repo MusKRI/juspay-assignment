@@ -2,6 +2,7 @@
 
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { useTheme } from "next-themes";
+import * as m from "motion/react-client";
 
 import { formatCurrency } from "@/lib/currency-utils";
 
@@ -52,8 +53,13 @@ export function TotalSalesChart() {
   const isDarkMode = theme === "dark";
 
   return (
-    <div className="p-6 relative flex flex-col gap-4 bg-primary-light rounded-[16px]">
-      <h3 className="text-lg font-semibold text-card-foreground">
+    <m.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, delay: 1 }}
+      className="p-6 relative flex flex-col gap-4 bg-primary-light rounded-[16px]"
+    >
+      <h3 className="text-sm font-semibold text-card-foreground">
         Total Sales
       </h3>
 
@@ -102,10 +108,10 @@ export function TotalSalesChart() {
                 }}
               />
               <div className="flex items-center justify-between w-full min-w-[120px]">
-                <span className="text-card-foreground text-sm">
+                <span className="text-card-foreground text-xs">
                   {item.name}
                 </span>
-                <span className="text-card-foreground font-medium">
+                <span className="text-card-foreground text-xs">
                   {formatCurrency(item.value)}
                 </span>
               </div>
@@ -113,6 +119,6 @@ export function TotalSalesChart() {
           ))}
         </div>
       </div>
-    </div>
+    </m.div>
   );
 }

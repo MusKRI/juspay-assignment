@@ -1,7 +1,7 @@
-import { Roboto } from "next/font/google";
+import { Roboto, Inter } from "next/font/google";
 import { cn } from "./classes";
 
-const fontRoboto = Roboto({
+const fontRoboto = Inter({
   subsets: ["latin"],
   variable: "--font-roboto",
 });

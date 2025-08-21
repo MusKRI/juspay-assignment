@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { SVGProps, useMemo } from "react";
+import { useMemo } from "react";
 import { ChevronRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -101,9 +101,11 @@ export function SidebarDashboardLinks() {
   }, [pathname]);
 
   return (
-    <SidebarGroup className="px-4">
-      <SidebarGroupLabel className="text-sm text-sidebar-foreground/40 font-normal">
-        Dashboards
+    <SidebarGroup className="p-0 gap-1">
+      <SidebarGroupLabel className="p-0 px-3 py-1">
+        <span className="text-sm text-foreground/40 font-normal">
+          Dashboards
+        </span>
       </SidebarGroupLabel>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
@@ -125,20 +127,24 @@ export function SidebarDashboardLinks() {
                         tooltip={link.title}
                         className="cursor-pointer"
                       >
-                        <ChevronRight className="transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 text-sidebar-foreground/40" />
-                        {link.icon && <link.icon />}
-                        <span className="text-sm">{link.title}</span>
+                        <div className="flex items-center gap-1 [transition:translate_250ms_ease-out] group-hover/collapsible:translate-x-[10px]">
+                          <ChevronRight className="size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 text-sidebar-foreground/40" />
+                          {link.icon && <link.icon className="size-5" />}
+                          <span className="text-sm">{link.title}</span>
+                        </div>
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
-                      <SidebarMenuSub className="border-l-0 px-0">
+                      <SidebarMenuSub className="border-l-0 px-0 mx-0 py-0">
                         {subItems?.map((subItem) => (
                           <SidebarMenuSubItem key={subItem.title}>
                             <SidebarMenuSubButton
                               asChild
                               className={cn(
-                                "pl-[calc(0.625rem+32px)]",
-                                subItem?.active && "bg-accent"
+                                "group/single-link relative pl-[calc(0.625rem+32px)]",
+                                link?.active
+                                  ? "bg-accent hover:bg-accent"
+                                  : "hover:bg-accent"
                               )}
                             >
                               <Link href={subItem.url} className="relative">
@@ -155,7 +161,9 @@ export function SidebarDashboardLinks() {
                                       : "opacity-0 scale-98 -translate-x-full"
                                   )}
                                 />
-                                <span className="text-sm">{subItem.title}</span>
+                                <span className="text-sm [transition:translate_250ms_ease-out] group-hover/single-link:translate-x-[10px]">
+                                  {subItem.title}
+                                </span>
                               </Link>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
@@ -172,34 +180,34 @@ export function SidebarDashboardLinks() {
                 key={link.title}
                 tooltip={link.title}
                 className={cn(
-                  "group relative p-0",
-                  link?.active && "bg-accent"
+                  "group/single-link relative p-0",
+                  link?.active ? "bg-accent hover:bg-accent" : "hover:bg-accent"
                 )}
               >
+                <span
+                  style={{
+                    willChange: link.active
+                      ? "transform,opacity,scale"
+                      : "auto",
+                  }}
+                  className={cn(
+                    "absolute left-0 h-[calc(100%-0.8rem)] w-[4px] rounded-full bg-primary [transition:opacity_250ms,scale_250ms,translate_250ms] [transition-timing-function:cubic-bezier(.075,.82,.165,1)]",
+                    link?.active
+                      ? "opacity-100 scale-100 translate-x-0"
+                      : "opacity-0 scale-98 -translate-x-full"
+                  )}
+                />
                 <Link
                   key={link.title}
                   href={link.url}
                   className={cn(
-                    "relative flex items-center ease-out w-full h-full p-2 rounded-md"
+                    "relative flex items-center ease-out w-full h-full px-1 py-1 rounded-[8px] [transition:translate_250ms_ease-out] group-hover/single-link:translate-x-[10px]"
                   )}
                 >
-                  <span
-                    style={{
-                      willChange: link.active
-                        ? "transform,opacity,scale"
-                        : "auto",
-                    }}
-                    className={cn(
-                      "absolute left-0 h-[calc(100%-0.8rem)] w-[4px] rounded-full bg-primary [transition:opacity_250ms,scale_250ms,translate_250ms] [transition-timing-function:cubic-bezier(.075,.82,.165,1)]",
-                      link?.active
-                        ? "opacity-100 scale-100 translate-x-0"
-                        : "opacity-0 scale-98 -translate-x-full"
-                    )}
-                  />
                   <span className="inline-block size-6" />
-                  <span className="w-full flex items-center gap-2">
+                  <span className="flex items-center gap-2">
                     <span className={cn("w-full flex items-center gap-2")}>
-                      {link.icon && <link.icon />}
+                      {link.icon && <link.icon className="size-5" />}
                       <span>{link.title}</span>
                     </span>
                   </span>

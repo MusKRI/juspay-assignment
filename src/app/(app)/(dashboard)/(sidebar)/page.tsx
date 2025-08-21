@@ -1,3 +1,5 @@
+import * as m from "motion/react-client";
+
 import {
   ProjectionsActualsChart,
   RevenueByLocation,
@@ -11,7 +13,14 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-4">
       <div className="relative p-1">
-        <h3 className="text-[15px] font-semibold">eCommerce</h3>
+        <m.h3
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+          className="text-[15px] font-semibold"
+        >
+          eCommerce
+        </m.h3>
       </div>
 
       <div className="flex flex-col gap-7">

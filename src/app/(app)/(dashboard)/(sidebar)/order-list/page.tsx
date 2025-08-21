@@ -1,8 +1,9 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
+import * as m from "motion/react-client";
 
 import { AllOrderListServer } from "@/features/order-list/components";
 import { orderListSearchParamsCache } from "@/features/order-list/utils";
-import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Order List",
@@ -21,8 +22,15 @@ export default async function OrderListPage({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="relative p-1">
-        <h3 className="text-[15px] font-semibold">Order List</h3>
+      <div className="relative px-2 py-1">
+        <m.h3
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+          className="text-sm font-semibold"
+        >
+          Order List
+        </m.h3>
       </div>
 
       <div className="relative">

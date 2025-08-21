@@ -4,7 +4,7 @@ import { Button } from "ui/button";
 import { useCallback } from "react";
 
 import { useRightSidebar } from "@/core/hooks/use-right-sidebar";
-
+import { Tooltip, TooltipContent, TooltipTrigger } from "ui/tooltip";
 import { BellIcon } from "icons/dashboard-header-icons";
 
 export function NotificationSidebarTrigger() {
@@ -18,17 +18,29 @@ export function NotificationSidebarTrigger() {
     }
   }, [rs, type, setParams]);
 
+  const tooltipContent =
+    rs && type === "notification"
+      ? "Close Notifications"
+      : "Open Notifications";
+
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="size-7 cursor-pointer"
-      onClick={() => {
-        toggleSidebar();
-      }}
-    >
-      <BellIcon className="size-5" />
-      <span className="sr-only">Toggle Notification Sidebar</span>
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="size-7 cursor-pointer"
+          onClick={() => {
+            toggleSidebar();
+          }}
+        >
+          <BellIcon className="size-5" />
+          <span className="sr-only">Notifications</span>
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>{tooltipContent}</p>
+      </TooltipContent>
+    </Tooltip>
   );
 }

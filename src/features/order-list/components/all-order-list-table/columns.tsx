@@ -18,7 +18,7 @@ const selectColumn = columnHelper.display({
   id: "select",
   header: ({ table }) => (
     <Checkbox
-      size="sm"
+      size="xs"
       checked={
         table.getIsAllPageRowsSelected() ||
         (table.getIsSomePageRowsSelected() && "indeterminate")
@@ -29,7 +29,7 @@ const selectColumn = columnHelper.display({
   ),
   cell: ({ row }) => (
     <Checkbox
-      size="sm"
+      size="xs"
       checked={row.getIsSelected()}
       onCheckedChange={(value) => row.toggleSelected(!!value)}
       aria-label="Select row"
@@ -49,7 +49,7 @@ const idColumn = columnHelper.accessor("id", {
   cell: ({ row }) => {
     return (
       <div className="flex items-center gap-1">
-        <p className="text-sm">{row.original.id}</p>
+        <p className="text-xs font-[400]">{row.original.id}</p>
       </div>
     );
   },
@@ -68,7 +68,7 @@ const userColumn = columnHelper.accessor("user", {
           <AvatarFallback>{row.original.user.name.charAt(0)}</AvatarFallback>
         </Avatar>
         <div>
-          <p className="text-sm">{row.original.user.name}</p>
+          <p className="text-xs">{row.original.user.name}</p>
         </div>
       </div>
     );
@@ -86,7 +86,7 @@ const projectColumn = columnHelper.accessor("project", {
   cell: ({ row }) => {
     return (
       <div className="flex items-center gap-1">
-        <p className="text-sm">{row.original.project}</p>
+        <p className="text-xs">{row.original.project}</p>
       </div>
     );
   },
@@ -100,7 +100,7 @@ const addressColumn = columnHelper.accessor("address", {
   cell: ({ row }) => {
     return (
       <div className="flex items-center gap-1">
-        <p className="text-sm">{row.original.address}</p>
+        <p className="text-xs">{row.original.address}</p>
         <CopyButton content={row.original.address} />
       </div>
     );
@@ -116,7 +116,7 @@ const dateColumn = columnHelper.accessor("createdAt", {
     return (
       <div className="flex items-center gap-1">
         <CalendarIcon className="size-4" />
-        <p className="text-sm">{getRelativeTime(row.original.createdAt)}</p>
+        <p className="text-xs">{getRelativeTime(row.original.createdAt)}</p>
       </div>
     );
   },
@@ -130,33 +130,39 @@ function getStatusConfig(status: OrderStatus) {
     case OrderStatus.IN_PROGRESS:
       return {
         label: "In Progress",
-        color: "#95a4fc",
+        color: "#8a8cd9",
+        indicator: "#95a4fc",
       };
     case OrderStatus.COMPLETE:
       return {
         label: "Complete",
         color: "#4aa785",
+        indicator: "#a1e3cb",
       };
     case OrderStatus.PENDING:
       return {
         label: "Pending",
         color: "#59a8d4",
+        indicator: "#b1e3ff",
       };
     case OrderStatus.APPROVED:
       return {
         label: "Approved",
         color: "#ffc555",
+        indicator: "#ffe999",
       };
     case OrderStatus.REJECTED:
       return {
         label: "Rejected",
-        color: "#9fa0a2",
+        color: "#7e7e7e",
+        indicator: "#7e7e7e",
       };
   }
 
   return {
     label: "Unknown",
-    color: "bg-gray-500",
+    color: "#9fa0a2",
+    indicator: "#9fa0a2",
   };
 }
 
@@ -166,16 +172,16 @@ const statusColumn = columnHelper.accessor("status", {
     <DataTableColumnHeader column={column} title="Status" />
   ),
   cell: ({ row }) => {
-    const { label, color } = getStatusConfig(row.original.status);
+    const { label, color, indicator } = getStatusConfig(row.original.status);
 
     return (
       <div className="flex items-center gap-1">
         <div
-          className="size-2 rounded-full"
-          style={{ backgroundColor: color }}
+          className="size-[6px] rounded-full"
+          style={{ backgroundColor: indicator }}
         />
         <p
-          className="text-sm"
+          className="text-xs"
           style={{
             color: color,
           }}

@@ -6,6 +6,7 @@ import { DashboardSidebarHeader } from "./dashboard-sidebar-header";
 import { SidebarDashboardLinks } from "./sidebar-dashboard-links";
 import { SidebarPagesLinks } from "./sidebar-pages-links";
 import { SidebarFavorites } from "./sidebar-favorites";
+import { cn } from "@/lib/classes";
 
 type DashboardSidebarProps = {
   sidebarProps: React.ComponentProps<typeof Sidebar>;
@@ -13,10 +14,16 @@ type DashboardSidebarProps = {
 
 export function DashboardSidebar({ sidebarProps }: DashboardSidebarProps) {
   return (
-    <Sidebar collapsible="offcanvas" {...sidebarProps}>
+    <Sidebar
+      collapsible="offcanvas"
+      className={cn(
+        `px-4 pt-5 [&_[data-slot="sidebar-inner"]]:flex [&_[data-slot="sidebar-inner"]]:flex-col [&_[data-slot="sidebar-inner"]]:gap-4`
+      )}
+      {...sidebarProps}
+    >
       <DashboardSidebarHeader />
       <SidebarFavorites />
-      <SidebarContent className="pt-4">
+      <SidebarContent>
         <SidebarDashboardLinks />
         <SidebarPagesLinks />
       </SidebarContent>

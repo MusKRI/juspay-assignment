@@ -34,7 +34,7 @@ export function DataTableColumnHeader<TData, TValue>({
   if (!column.getCanSort() && !column.getCanHide()) {
     return (
       <div className={cn(className)}>
-        <p className="text-sm text-foreground/40">{title}</p>
+        <p className="text-xs text-foreground/40 font-[400]">{title}</p>
       </div>
     );
   }
@@ -48,15 +48,15 @@ export function DataTableColumnHeader<TData, TValue>({
       )}
       onClick={handleSorting}
     >
-      <p className="text-sm text-foreground/40">{title}</p>
+      <p className="text-xs text-foreground/40">{title}</p>
       {sorting === "asc" && (
-        <ArrowUpIcon className="size-4 opacity-0 group-hover:opacity-100 [transition:opacity_0.2s_ease-out] text-foreground/60" />
+        <ArrowUpIcon className="size-3.5 opacity-0 group-hover:opacity-100 [transition:opacity_0.2s_ease-out] text-foreground/60" />
       )}
       {sorting === "desc" && (
-        <ArrowDownIcon className="size-4 opacity-0 group-hover:opacity-100 [transition:opacity_0.2s_ease-out] text-foreground/60" />
+        <ArrowDownIcon className="size-3.5 opacity-0 group-hover:opacity-100 [transition:opacity_0.2s_ease-out] text-foreground/60" />
       )}
       {sorting === false && (
-        <ArrowUpDownIcon className="size-4 opacity-0 group-hover:opacity-100 [transition:opacity_0.2s_ease-out] text-foreground/60" />
+        <ArrowUpDownIcon className="size-3.5 opacity-0 group-hover:opacity-100 [transition:opacity_0.2s_ease-out] text-foreground/60" />
       )}
     </button>
   );

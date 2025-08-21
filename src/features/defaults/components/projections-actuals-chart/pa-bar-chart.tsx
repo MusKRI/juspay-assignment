@@ -8,8 +8,10 @@ import {
   ResponsiveContainer,
   CartesianGrid,
   Tooltip,
+  Cell,
 } from "recharts";
 import { useTheme } from "next-themes";
+import { useState } from "react";
 
 const chartData = [
   {
@@ -70,34 +72,34 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 
     return (
       <div className="bg-card border border-border rounded-lg shadow-lg p-4 min-w-[180px]">
-        <div className="text-sm font-medium text-card-foreground mb-3">
+        <div className="text-xs font-medium text-card-foreground mb-3">
           {label}
         </div>
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-sm bg-[#a8c5da]"></div>
-              <span className="text-sm text-muted-foreground">Projections</span>
+              <span className="text-xs text-muted-foreground">Projections</span>
             </div>
-            <span className="text-sm font-medium text-card-foreground">
+            <span className="text-xs font-medium text-card-foreground">
               {projectionsValue.toFixed(1)}M
             </span>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-sm bg-[#d0dfeb] dark:bg-[#687681]"></div>
-              <span className="text-sm text-muted-foreground">Actuals</span>
+              <span className="text-xs text-muted-foreground">Actuals</span>
             </div>
-            <span className="text-sm font-medium text-card-foreground">
+            <span className="text-xs font-medium text-card-foreground">
               {actualsValue.toFixed(1)}M
             </span>
           </div>
           <div className="border-t border-border pt-2 mt-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-card-foreground">
+              <span className="text-xs font-medium text-card-foreground">
                 Total
               </span>
-              <span className="text-sm font-semibold text-card-foreground">
+              <span className="text-xs font-semibold text-card-foreground">
                 {totalValue.toFixed(1)}M
               </span>
             </div>
@@ -111,6 +113,8 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 };
 
 export function ProjectionsActualsBarChart() {
+  const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
+
   const { theme } = useTheme();
 
   const colors = {
@@ -119,7 +123,7 @@ export function ProjectionsActualsBarChart() {
   };
 
   return (
-    <div className="w-full min-h-[300px] mt-4">
+    <div className="w-full min-h-[170px] mt-4">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={chartData}
@@ -168,17 +172,33 @@ export function ProjectionsActualsBarChart() {
           <Bar
             dataKey="projections"
             stackId="a"
-            fill={colors.projections}
             radius={[0, 0, 0, 0]}
             stroke="transparent"
-          />
+          >
+            {chartData.map((item, index) => (
+              <Cell
+                key={index}
+                fill={colors.projections}
+                opacity={activeIndex === index ? 1 : 0.7}
+                onMouseEnter={() => setActiveIndex(index)}
+              />
+            ))}
+          </Bar>
           <Bar
             dataKey="actuals"
             stackId="a"
-            fill={colors.actuals}
             radius={[8, 8, 0, 0]}
             stroke="transparent"
-          />
+          >
+            {chartData.map((item, index) => (
+              <Cell
+                key={index}
+                fill={colors.actuals}
+                opacity={activeIndex === index ? 1 : 0.5}
+                onMouseEnter={() => setActiveIndex(index)}
+              />
+            ))}
+          </Bar>
         </BarChart>
       </ResponsiveContainer>
     </div>

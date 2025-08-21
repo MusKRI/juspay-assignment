@@ -1,6 +1,8 @@
-import { useDataTable } from "@/core/hooks/use-data-table";
-import { Button } from "@/core/components/ui/button";
 import { SVGProps } from "react";
+import * as m from "motion/react-client";
+
+import { Button } from "@/core/components/ui/button";
+import { useDataTable } from "@/core/hooks/use-data-table";
 import { cn } from "@/lib/classes";
 
 type Props = {
@@ -100,7 +102,12 @@ export function DataTablePagination({ pagination }: Props) {
   const pageNumbers = generatePageNumbers(currentPage, totalPages);
 
   return (
-    <div className="flex items-center justify-end gap-1">
+    <m.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, delay: 0.35 }}
+      className="flex items-center justify-end gap-1"
+    >
       <Button
         variant="ghost"
         size="icon"
@@ -154,6 +161,6 @@ export function DataTablePagination({ pagination }: Props) {
       >
         <ChevronRightIcon className="h-4 w-4" />
       </Button>
-    </div>
+    </m.div>
   );
 }

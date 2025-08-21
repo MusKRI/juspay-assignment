@@ -23,12 +23,12 @@ export function DashboardSidebarHeader({
   };
 
   return (
-    <SidebarHeader className="px-4 pt-5" {...sidebarHeaderProps}>
+    <SidebarHeader {...sidebarHeaderProps} className="p-1">
       <SidebarMenu>
         <SidebarMenuItem>
           <SidebarMenuButton
             asChild
-            className="data-[slot=sidebar-menu-button]:!p-1.5 "
+            className="data-[slot=sidebar-menu-button]:!p-1.5"
           >
             <div className="flex items-center gap-2">
               <Avatar>

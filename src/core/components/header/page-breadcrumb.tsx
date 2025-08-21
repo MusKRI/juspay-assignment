@@ -2,9 +2,9 @@
 
 import { usePathname } from "next/navigation";
 import React, { useMemo } from "react";
+import * as m from "motion/react-client";
 
 import { BreadcrumbSeparatorIcon } from "icons/dashboard-header-icons";
-import Link from "next/link";
 
 type BreadcrumbItem = {
   label: string;
@@ -41,12 +41,18 @@ export function PageBreadcrumb() {
       <BreadcrumbSeparatorIcon />
       {currentPage.breadcrumb.map((breadcrumb, index) => {
         return (
-          <React.Fragment key={index}>
+          <m.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.2 }}
+            key={`${breadcrumb}-${index}`}
+          >
             <span className="text-sm text-foreground">{breadcrumb}</span>
             {index < currentPage.breadcrumb.length - 1 && (
               <BreadcrumbSeparatorIcon />
             )}
-          </React.Fragment>
+          </m.span>
         );
       })}
     </div>

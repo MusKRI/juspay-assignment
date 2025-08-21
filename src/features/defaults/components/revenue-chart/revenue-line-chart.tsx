@@ -60,16 +60,18 @@ const CustomLegend = ({ payload }: CustomLegendProps) => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row md:items-center mb-6 gap-1">
-      <h3 className="text-lg font-semibold text-card-foreground md:pr-6 md:border-r">
+    <div className="flex flex-col md:flex-row md:items-center gap-4">
+      <h3 className="text-sm font-semibold text-card-foreground md:pr-6 md:border-r">
         Revenue
       </h3>
-      <div className="flex items-center gap-6 pl-6">
+      <div className="flex items-center gap-4">
         {legendItems.map((item, index) => (
-          <div key={index} className="flex items-center gap-2">
-            <div className={`w-3 h-3 rounded-full ${item.colorClass}`} />
-            <span className="text-sm text-muted-foreground">{item.value}</span>
-            <span className="text-sm font-medium text-card-foreground">
+          <div key={index} className="flex items-center gap-2 group">
+            <div
+              className={`size-[6px] rounded-full [transition:scale_200ms_ease-out] group-hover:scale-150 ${item.colorClass}`}
+            />
+            <span className="text-xs text-muted-foreground">{item.value}</span>
+            <span className="text-xs font-semibold text-card-foreground">
               {item.amount}
             </span>
           </div>
@@ -100,29 +102,29 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 
     return (
       <div className="bg-card border border-border rounded-lg shadow-lg p-4 min-w-[200px]">
-        <div className="text-sm font-medium text-card-foreground mb-3">
+        <div className="text-xs font-medium text-card-foreground mb-3">
           {label} 2024
         </div>
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#1c1c1c] dark:bg-[#c6c7f8]"></div>
-              <span className="text-sm text-muted-foreground">
+              <div className="size-2 rounded-full bg-[#1c1c1c] dark:bg-[#c6c7f8]"></div>
+              <span className="text-xs text-muted-foreground">
                 Current Week
               </span>
             </div>
-            <span className="text-sm font-medium text-card-foreground">
+            <span className="text-xs font-medium text-card-foreground">
               ${currentWeekValue.toLocaleString()}
             </span>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#a8c5da]"></div>
-              <span className="text-sm text-muted-foreground">
+              <div className="size-2 rounded-full bg-[#a8c5da]"></div>
+              <span className="text-xs text-muted-foreground">
                 Previous Week
               </span>
             </div>
-            <span className="text-sm font-medium text-card-foreground">
+            <span className="text-xs font-medium text-card-foreground">
               ${previousWeekValue.toLocaleString()}
             </span>
           </div>
@@ -159,18 +161,18 @@ export function RevenueLineChart() {
   }));
 
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col gap-4">
       <CustomLegend />
-      <div className="w-full h-[320px]">
+      <div className="w-full h-[332px]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={enhancedData}
-            margin={{
-              top: 20,
-              right: 30,
-              left: 20,
-              bottom: 20,
-            }}
+            // margin={{
+            //   top: 20,
+            //   right: 30,
+            //   left: 20,
+            //   bottom: 20,
+            // }}
           >
             <CartesianGrid
               strokeDasharray="none"

@@ -75,7 +75,7 @@ export function NotificationSidebarWrapper({
 
   return (
     <div
-      className="group peer text-sidebar-foreground hidden md:block [--notification-sidebar-width:20rem] md:[--notification-sidebar-width:20rem]"
+      className="group peer text-sidebar-foreground hidden md:block [--notification-sidebar-width:17.5rem] md:[--notification-sidebar-width:20rem]"
       data-state={state}
       data-collapsible={state === "collapsed" ? collapsible : ""}
       data-variant={variant}

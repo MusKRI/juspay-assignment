@@ -20,7 +20,7 @@ export default async function DashboardLayout({
       defaultOpen={defaultOpen}
       style={
         {
-          "--sidebar-width": "13.25rem", // 242px
+          "--sidebar-width": "13.25rem", // 212px
           "--sidebar-width-mobile": "20rem",
           "--header-height": "68px",
           "--header-height-mobile": "60px",

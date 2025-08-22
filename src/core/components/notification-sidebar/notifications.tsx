@@ -1,6 +1,10 @@
+"use client";
+import { motion, useInView } from "motion/react";
+
 import { cn } from "@/lib/classes";
 import { getRelativeTime } from "@/lib/date-utils";
 import { BugIcon, UserIcon, BroadcastIcon } from "icons/notification-icons";
+import { useRef } from "react";
 
 type Notification = {
   id: number;
@@ -59,13 +63,43 @@ const notifications = [
 ] satisfies Notification[];
 
 export function Notifications() {
-  return (
-    <div className="flex flex-col gap-2">
-      <h3 className="text-sm font-semibold px-1 py-2">Notifications</h3>
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref);
 
-      <ul className="flex flex-col gap-2">
+  return (
+    <div className="flex flex-col gap-2" ref={ref}>
+      <motion.h3
+        className="text-sm font-semibold px-1 py-2"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -10 }}
+        transition={{ duration: 0.2, ease: "easeOut", delay: 0.2 }}
+      >
+        Notifications
+      </motion.h3>
+
+      <motion.ul
+        className="flex flex-col gap-2"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -10 }}
+        transition={{
+          duration: 0.2,
+          ease: "easeOut",
+          delay: 0.2,
+          delayChildren: 0.3,
+        }}
+      >
         {notifications.map((notification) => (
-          <li key={notification.id} className="p-1">
+          <motion.li
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -10 }}
+            transition={{
+              duration: 0.2,
+              ease: "easeOut",
+              delay: 0.2,
+            }}
+            key={notification.id}
+            className="p-1 [transition:background-color_0.2s_ease-out] hover:bg-accent/50 rounded-sm cursor-pointer"
+          >
             <div className="flex gap-2">
               <div
                 className={cn(
@@ -76,7 +110,10 @@ export function Notifications() {
                 {getNotificationConfig(notification.type)?.icon}
               </div>
               <div className="flex flex-col">
-                <p className="text-sm font-normal truncate max-w-[25ch]">
+                <p
+                  className="text-sm font-normal truncate max-w-[25ch]"
+                  title={notification.title}
+                >
                   {notification.title}
                 </p>
                 <p className="text-xs text-foreground/40">
@@ -84,9 +121,9 @@ export function Notifications() {
                 </p>
               </div>
             </div>
-          </li>
+          </motion.li>
         ))}
-      </ul>
+      </motion.ul>
     </div>
   );
 }

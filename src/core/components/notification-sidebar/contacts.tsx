@@ -1,3 +1,8 @@
+"use client";
+
+import { useRef } from "react";
+import { useInView, motion } from "motion/react";
+
 import ContactAv1 from "@/assets/avatars/contact1.png";
 import ContactAv2 from "@/assets/avatars/contact2.png";
 import ContactAv3 from "@/assets/avatars/contact3.png";
@@ -46,14 +51,44 @@ const contacts = [
 ] satisfies Contact[];
 
 export function Contacts() {
-  return (
-    <div className="flex flex-col gap-2">
-      <h3 className="text-sm font-semibold px-1 py-2">Contacts</h3>
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref);
 
-      <ul className="flex flex-col gap-2">
+  return (
+    <div className="flex flex-col gap-2" ref={ref}>
+      <motion.h3
+        className="text-sm font-semibold px-1 py-2"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -10 }}
+        transition={{ duration: 0.2, ease: "easeOut", delay: 0.2 }}
+      >
+        Contacts
+      </motion.h3>
+
+      <motion.ul
+        className="flex flex-col gap-2"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -10 }}
+        transition={{
+          duration: 0.2,
+          ease: "easeOut",
+          delay: 0.2,
+          delayChildren: 0.3,
+        }}
+      >
         {contacts.map((contact) => {
           return (
-            <li key={contact.id} className="relative p-1">
+            <motion.li
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -10 }}
+              transition={{
+                duration: 0.2,
+                ease: "easeOut",
+                delay: 0.2,
+              }}
+              key={contact.id}
+              className="relative p-1 [transition:background-color_0.2s_ease-out] hover:bg-accent/50 rounded-sm cursor-pointer"
+            >
               <div className="flex items-center gap-2">
                 <Avatar className="size-6">
                   <AvatarImage src={contact.avatar} />
@@ -66,10 +101,10 @@ export function Contacts() {
                   </p>
                 </div>
               </div>
-            </li>
+            </motion.li>
           );
         })}
-      </ul>
+      </motion.ul>
     </div>
   );
 }

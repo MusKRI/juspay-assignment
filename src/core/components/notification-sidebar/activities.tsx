@@ -1,3 +1,6 @@
+"use client";
+import { motion, useInView } from "motion/react";
+
 import ActivityAv1 from "@/assets/avatars/act-av1.png";
 import ActivityAv2 from "@/assets/avatars/act-av2.png";
 import ActivityAv3 from "@/assets/avatars/act-av3.png";
@@ -5,6 +8,7 @@ import ActivityAv4 from "@/assets/avatars/act-av4.png";
 import ActivityAv5 from "@/assets/avatars/act-av5.png";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getRelativeTime } from "@/lib/date-utils";
+import { useRef } from "react";
 
 type Activity = {
   id: number;
@@ -47,14 +51,41 @@ const activities = [
 ] satisfies Activity[];
 
 export function Activities() {
-  return (
-    <div className="flex flex-col gap-2">
-      <h3 className="text-sm font-semibold px-1 py-2">Activities</h3>
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref);
 
-      <ul className="flex flex-col gap-2">
+  return (
+    <div className="flex flex-col gap-2" ref={ref}>
+      <motion.h3
+        className="text-sm font-semibold px-1 py-2"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -10 }}
+        transition={{ duration: 0.2, ease: "easeOut", delay: 0.2 }}
+      >
+        Activities
+      </motion.h3>
+
+      <motion.ul
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -10 }}
+        transition={{
+          duration: 0.2,
+          ease: "easeOut",
+          delay: 0.2,
+          delayChildren: 0.3,
+        }}
+        className="flex flex-col gap-2"
+      >
         {activities.map((activity) => {
           return (
-            <li
+            <motion.li
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -10 }}
+              transition={{
+                duration: 0.2,
+                ease: "easeOut",
+                delay: 0.2,
+              }}
               key={activity.id}
               className="relative p-1 before:absolute before:top-full before:-translate-y-[calc(100%-8px)] before:left-[14px] before:w-px before:h-[calc(100%-25px)] before:bg-foreground/10 last:before:hidden"
             >
@@ -73,10 +104,10 @@ export function Activities() {
                   </p>
                 </div>
               </div>
-            </li>
+            </motion.li>
           );
         })}
-      </ul>
+      </motion.ul>
     </div>
   );
 }
